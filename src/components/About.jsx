@@ -6,6 +6,7 @@ import {services} from '../constants';
 import {fadeIn, textVariant} from '../utils/motion';
 
 
+import  {SectionWrapper} from '../hoc';
 const ServiceCard = ({index, title, icon}) =>{
   return (
     <Tilt className="xs:w-[250px] w-full">
@@ -54,4 +55,4 @@ const About = () => {
   )
 }
 
-export default About
+export default SectionWrapper(About, "about");
