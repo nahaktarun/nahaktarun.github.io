@@ -7,7 +7,11 @@ import { styles } from "../style";
 import { EarthCanvas } from "./canvas";
 import { SectionWrapper } from "../hoc";
 import { slideIn } from "../utils/motion";
+import { l } from "maath/dist/misc-7d870b3c.esm";
 
+// Email template: template_3gdhujf
+// email service:  service_v5aw7y6
+// 6G2cuvhELV9e3nFaC
 const Contact = () => {
   const formRef = useRef();
   const [form, setForm] = useState({
@@ -18,8 +22,45 @@ const Contact = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const handleChange = () => {};
-  const handleSubmit = () => {};
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    emailjs
+      .send(
+        "service_v5aw7y6",
+        "template_3gdhujf",
+        {
+          from_name: form.name,
+          to_name: "Tarun Nahak",
+          from_email: form.email,
+          to_email: "tarunnahak25@gmail.com",
+          message: form.message,
+        },
+        "6G2cuvhELV9e3nFaC"
+      )
+      .then(
+        () => {
+          setLoading(false);
+          alert("Thank you. I'll get back to you as soon as possible.");
+
+          setForm({
+            name: "",
+            email: "",
+            message: "",
+          });
+        },
+        (error) => {
+          setLoading(false);
+          console.log(error);
+          alert("Somthing went wrong");
+        }
+      );
+  };
 
   return (
     <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden">
